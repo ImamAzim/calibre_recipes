@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+# vim:fileencoding=utf-8
+from calibre.web.feeds.news import AutomaticNewsRecipe
+
+class BasicUserRecipe1704971071(AutomaticNewsRecipe):
+    title          = 'chapatte'
+    oldest_article = 30
+    max_articles_per_feed = 1
+    auto_cleanup   = False
+    index_url = 'https://www.chappatte.com/fr/dessins-de-presse'
+
+
+    def parse_index(self):
+        soup = self.index_to_soup(self.index_url)
+        articles = list()
+
+        for div in soup.find_all('div', "carousel-item"):
+            title_div =div.find('div', 'col-title')
+            title = title_div.get_text().strip()
+            date_div = div.find('div', 'col-date')
+            date = date_div.get_text().strip()
+            src_div = div.find('div', "addthis_inline_share_toolbox")
+            url = src_div['data-url']
+            description = src_div['data-description']
+            article = dict(
+                    title=title,
+                    url=url,
+                    date=date,
+                    description=description,
+                    )
+            articles.append(article)
+        feeds = [('Articles', articles)]
+        return feeds
+
+    keep_only_tags = [
+	dict(name='div', attrs={'class': 'col-img col-xl-10'}),
+    ]
+
+
