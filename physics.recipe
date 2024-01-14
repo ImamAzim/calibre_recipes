@@ -7,12 +7,28 @@ class AdvancedUserRecipe1691408719(BasicNewsRecipe):
     oldest_article = 3
     max_articles_per_feed = 100
     auto_cleanup   = True
+    index_url = 'https://physicsworld.com/feed'
 
-    feeds          = [
-        ('physics world', 'https://physicsworld.com/feed'),
-    ]
-    
-    use_embedded_content = False
+    def parse_index(self):
+        soup = self.index_to_soup(self.index_url)
+        articles = list()
 
+        for div in soup.find_all('item'):
+            title = div.title.text
+            print(title)
+            # title=div.find('title').strip()
+            # date=div.find('pubDate').strip()
+            date=div.find('pubDate').text
+            # description=div.find('description').strip()
+            # url=div.find('link').strip()
+            # article = dict(
+                    # title=title,
+                    # url=url,
+                    # date=date,
+                    # description=description,
+                    # )
+            # articles.append(article)
+        feeds = [('Articles', articles)]
+        return feeds
 
 
