@@ -15,19 +15,16 @@ class AdvancedUserRecipe1691408719(BasicNewsRecipe):
 
         for div in soup.find_all('item'):
             title = div.title.text
-            print(title)
-            # title=div.find('title').strip()
-            # date=div.find('pubDate').strip()
             date=div.find('pubDate').text
-            # description=div.find('description').strip()
-            # url=div.find('link').strip()
-            # article = dict(
-                    # title=title,
-                    # url=url,
-                    # date=date,
-                    # description=description,
-                    # )
-            # articles.append(article)
+            description=div.find('description').text
+            url=div.find('link').text
+            article = dict(
+                    title=title,
+                    url=url,
+                    date=date,
+                    description=description,
+                    )
+            articles.append(article)
         feeds = [('Articles', articles)]
         return feeds
 
