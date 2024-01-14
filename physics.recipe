@@ -12,7 +12,9 @@ class AdvancedUserRecipe1691408719(BasicNewsRecipe):
     oldest_article = 3
     max_articles_per_feed = 100
     auto_cleanup   = True
+    exclude_article_type = ['Podcasts']
     index_url = 'https://physicsworld.com/feed'
+
 
     def parse_index(self):
         raw_soup = self.index_to_soup(self.index_url, raw=True)
@@ -25,16 +27,18 @@ class AdvancedUserRecipe1691408719(BasicNewsRecipe):
             date = dateutil.parser.parse(date_text)
             article_age = datetime.datetime.now()-date
             if article_age.days <= self.oldest_article:
-                title = div.title.text
-                description=div.find('description').text
-                url=div.find('link').text
-                article = dict(
-                        title=title,
-                        url=url,
-                        date=date_text,
-                        description=description,
-                        )
-                articles.append(article)
+                article_type = div.find('article-type').text
+                if article_type not in self.exclude_article_type:
+                    title = div.title.text
+                    description=div.find('description').text
+                    url=div.find('link').text
+                    article = dict(
+                            title=title,
+                            url=url,
+                            date=date_text,
+                            description=description,
+                            )
+                    articles.append(article)
         feeds = [('Articles', articles)]
         return feeds
 
