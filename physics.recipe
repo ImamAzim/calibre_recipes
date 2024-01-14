@@ -2,6 +2,7 @@
 # vim:fileencoding=utf-8
 from calibre.web.feeds.news import BasicNewsRecipe
 import datetime
+import dateutil.parser
 
 from bs4 import BeautifulSoup
 
@@ -21,14 +22,14 @@ class AdvancedUserRecipe1691408719(BasicNewsRecipe):
 
         for div in soup.find_all('item'):
             title = div.title.text
-            date=div.find('pubDate').text
-            date_iso = datetime.datetime.strptime(date[0:-6], '%a, %d %b %Y %H:%M:%S').isoformat()
+            date_text=div.find('pubDate').text.strip()[0:-6]
+            date = dateutil.parser.parse(date_text).isoformat()
             description=div.find('description').text
             url=div.find('link').text
             article = dict(
                     title=title,
                     url=url,
-                    date=iso_date,
+                    date=date,
                     description=description,
                     )
             articles.append(article)
