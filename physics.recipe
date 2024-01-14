@@ -21,18 +21,20 @@ class AdvancedUserRecipe1691408719(BasicNewsRecipe):
         articles = list()
 
         for div in soup.find_all('item'):
-            title = div.title.text
             date_text=div.find('pubDate').text.strip()[0:-6]
-            date = dateutil.parser.parse(date_text).isoformat()
-            description=div.find('description').text
-            url=div.find('link').text
-            article = dict(
-                    title=title,
-                    url=url,
-                    date=date,
-                    description=description,
-                    )
-            articles.append(article)
+            date = dateutil.parser.parse(date_text)
+            article_age = datetime.datetime.now()-date
+            if article_age.days <= self.oldest_article:
+                title = div.title.text
+                description=div.find('description').text
+                url=div.find('link').text
+                article = dict(
+                        title=title,
+                        url=url,
+                        date=date_text,
+                        description=description,
+                        )
+                articles.append(article)
         feeds = [('Articles', articles)]
         return feeds
 
