@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 
 class AdvancedUserRecipe1691408719(BasicNewsRecipe):
     title          = 'physics'
-    oldest_article = 3
+    oldest_article = 0
     max_articles_per_feed = 100
     auto_cleanup   = True
     exclude_article_type = ['Podcasts', 'Webinar', 'Video']
