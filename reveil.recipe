@@ -14,9 +14,11 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
 
     index_url = 'https://www.courrierinternational.com/feed/all/rss.xml'
     deadline_hour = 6
-    deadline_minute =35
+    deadline_minute = 35
     no_stylesheets = True
     auto_cleanup   = False
+
+    deadline = datetime.time(deadline_hour, deadline_minute)
 
     keep_only_tags = [
         dict(name='div', attrs={'class': 'article-heading'}),
@@ -62,15 +64,15 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
             date_text=div.find('pubDate').text.strip()[0:-6]
             article_datetime = dateutil.parser.parse(date_text)
             if article_datetime.date() == datetime.date.today():
-                if article_datetime.time() <
-                title = div.title.text
-                description=div.find('description').text
-                url=div.find('link').text
-                article = dict(
-                        title=title,
-                        url=url,
-                        date=date_text,
-                        description=description,
-                        )
-                articles.append(article)
+                if article_datetime.time() <= deadline:
+                    title = div.title.text
+                    description=div.find('description').text
+                    url=div.find('link').text
+                    article = dict(
+                            title=title,
+                            url=url,
+                            date=date_text,
+                            description=description,
+                            )
+                    articles.append(article)
         feeds = [('Articles', articles)]
