@@ -64,7 +64,7 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
             date_text=div.find('pubDate').text.strip()[0:-6]
             article_datetime = dateutil.parser.parse(date_text)
             if article_datetime.date() == datetime.date.today():
-                if article_datetime.time() <= deadline:
+                if article_datetime.time() <= self.deadline:
                     title = div.title.text
                     description=div.find('description').text
                     url=div.find('link').text
