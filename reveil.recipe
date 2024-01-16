@@ -13,10 +13,11 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
     language = 'fr'
 
     index_url = 'https://www.courrierinternational.com/feed/all/rss.xml'
-    deadline_hour = 6
+    deadline_hour = 15
     deadline_minute = 35
     no_stylesheets = True
     auto_cleanup   = False
+    max_articles_per_feed = 100
 
     deadline = datetime.time(deadline_hour, deadline_minute)
 
@@ -75,4 +76,6 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
                             description=description,
                             )
                     articles.append(article)
+
         feeds = [('Articles', articles)]
+        return feeds
