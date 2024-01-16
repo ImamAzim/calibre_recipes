@@ -6,16 +6,11 @@ import re
 
 class AdvancedUserRecipe1667902828(BasicNewsRecipe):
     title          = 'reveil'
-    oldest_article = 1
-    max_articles_per_feed = 100
     language = 'fr'
 
-    feeds          = [
-        ('reveil', 'https://www.courrierinternational.com/feed/rubrique/reveil/rss.xml'),
-    ]
+    index_url = 'https://www.courrierinternational.com/feed/all/rss.xml'
     no_stylesheets = True
-
-    #auto_cleanup   = True
+    auto_cleanup   = False
 
     keep_only_tags = [
         dict(name='div', attrs={'class': 'article-heading'}),
@@ -35,7 +30,6 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
         dict(name='p', attrs={'class': 'article-vo'}),
         dict(name='section', attrs={'class': 'ci-services services-left'}),
     ]
-    cover_url = 'https://reveil.courrierinternational.com/static/images/icon.png'
 
     needs_subscription = True
     login_url = 'https://www.courrierinternational.com/login'
@@ -51,3 +45,28 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
             br['pass'] = self.password
             br.submit()
         return br
+
+    def parse_index(self):
+        raw_soup = self.index_to_soup(self.index_url, raw=True)
+        soup = BeautifulSoup(raw_soup, 'xml')
+
+        articles = list()
+
+        for div in soup.find_all('item'):
+            date_text=div.find('pubDate').text.strip()[0:-6]
+            date = dateutil.parser.parse(date_text)
+            article_age = datetime.datetime.now()-date
+            if article_age.days <= self.oldest_article:
+                article_type = div.find('article-type').text
+                if article_type not in self.exclude_article_type:
+                    title = div.title.text
+                    description=div.find('description').text
+                    url=div.find('link').text
+                    article = dict(
+                            title=title,
+                            url=url,
+                            date=date_text,
+                            description=description,
+                            )
+                    articles.append(article)
+        feeds = [('Articles', articles)]
