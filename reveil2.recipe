@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+# vim:fileencoding=utf-8
+
+from calibre.web.feeds.news import BasicNewsRecipe
+import re
+
+class AdvancedUserRecipe1667902828(BasicNewsRecipe):
+    title          = 'reveil'
+    oldest_article = 1
+    max_articles_per_feed = 100
+    language = 'fr'
+
+    feeds          = [
+        ('reveil', 'https://www.courrierinternational.com/feed/rubrique/reveil/rss.xml'),
+    ]
+    no_stylesheets = True
+
+    #auto_cleanup   = True
+
+    keep_only_tags = [
+        dict(name='div', attrs={'class': 'article-heading'}),
+        dict(name='p', attrs={'class': 'article-lede'}),
+        dict(name='div', attrs={'class': 'article-metas'}),
+        dict(name='div', attrs={'class': 'article-content'}),
+        dict(name='p', attrs={'class': 'article-authors'}),
+        dict(name='div', attrs={'class': 'article-box-source'}),
+    ]
+    remove_tags = [
+        dict(name='div', attrs={'class': 'article-tools'}),
+        dict(name='div', attrs={'class': 'tools-list'}),
+        dict(name='div', attrs={'class': 'article-readmore'}),
+        dict(name='div', attrs={'class': 'tags-list'}),
+        dict(name='div', attrs={'class': 'tags-list'}),
+        dict(name='a', attrs={'class': 'source-link'}),
+        dict(name='p', attrs={'class': 'article-vo'}),
+        dict(name='section', attrs={'class': 'ci-services services-left'}),
+    ]
+    cover_url = 'https://reveil.courrierinternational.com/static/images/icon.png'
+
+    needs_subscription = True
+    login_url = 'https://www.courrierinternational.com/login'
+
+    def get_browser(self):
+        def is_form_login(form):
+            return "id" in form.attrs and form.attrs['id'] == "user-login-form"
+        br = BasicNewsRecipe.get_browser(self)
+        if self.username:
+            br.open(self.login_url)
+            br.select_form(predicate=is_form_login)
+            br['name'] = self.username
+            br['pass'] = self.password
+            br.submit()
+        return br
