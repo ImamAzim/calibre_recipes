@@ -81,12 +81,14 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
                             description=description,
                             )
                     articles.append(article)
-        if datetime.date.today().weekday == self.une_du_jour_day:
+        if datetime.date.today().weekday() == self.une_du_jour_day:
+            print('ok1')
             raw_soup = self.index_to_soup(self.politic_url, raw=True)
             soup = BeautifulSoup(raw_soup, 'xml')
             for div in soup.find_all('item'):
                 url=div.find('link').text
                 if self.une_du_jour_name in url:
+                    print('ok2')
                     date_text=div.find('pubDate').text.strip()[0:-6]
                     title = div.title.text
                     description=div.find('description').text
@@ -98,6 +100,7 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
                             )
                     articles.append(article)
         feeds = [('Articles', articles)]
+        self.abort_recipe_processing('fin')
         return feeds
 
 
