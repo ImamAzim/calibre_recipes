@@ -13,8 +13,8 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
     language = 'fr'
 
     index_url = 'https://www.courrierinternational.com/feed/all/rss.xml'
-    deadline_hour = 6
-    deadline_minute = 35
+    deadline_hour = 11
+    deadline_minute = 0
     no_stylesheets = True
     auto_cleanup   = False
     max_articles_per_feed = 100
