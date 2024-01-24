@@ -20,7 +20,7 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
     auto_cleanup   = False
     max_articles_per_feed = 100
     une_du_jour_day = 3
-    une_du_jour_name = 'une-du-jour'
+    une_du_jour_name = 'a-la-une-de-l-hebdo'
 
     deadline = datetime.time(deadline_hour, deadline_minute)
 
