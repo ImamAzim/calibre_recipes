@@ -10,4 +10,5 @@ class AdvancedUserRecipe1668592883(BasicNewsRecipe):
 
     feeds          = [
         ('suisse', 'https://www.rts.ch/info/suisse/?format=rss/news'),
+        ('sport', 'http://www.rts.ch/sport/tout-le-sport/?format=rss/news')
     ]
