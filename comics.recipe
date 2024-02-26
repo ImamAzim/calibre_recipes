@@ -22,3 +22,4 @@ class AdvancedUserRecipe1704966550(BasicNewsRecipe):
     remove_attributes = [
             'style',
             ]
+    extra_css = "img {width: 100%; height: 100%; object-fit: contain}"
