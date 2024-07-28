@@ -42,6 +42,9 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
         dict(name='p', attrs={'class': 'article-vo'}),
         dict(name='section', attrs={'class': 'ci-services services-left'}),
     ]
+    remove_attributes = [
+            'loading',
+            ]
 
     needs_subscription = True
     login_url = 'https://www.courrierinternational.com/login'
