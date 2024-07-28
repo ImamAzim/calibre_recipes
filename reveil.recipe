@@ -40,6 +40,7 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
         dict(name='div', attrs={'class': 'tags-list'}),
         dict(name='a', attrs={'class': 'source-link'}),
         dict(name='p', attrs={'class': 'article-vo'}),
+        dict(name='div', attrs={'data-mobile': 'true'}),
         dict(name='section', attrs={'class': 'ci-services services-left'}),
     ]
     remove_attributes = [
