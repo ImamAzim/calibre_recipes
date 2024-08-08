@@ -11,8 +11,11 @@ from bs4 import BeautifulSoup
 class AdvancedUserRecipe1667902828(BasicNewsRecipe):
     title          = 'CourrierWeekend'
     language = 'fr'
-
-    index_url = 'https://www.courrierinternational.com/feed/all/rss.xml'
+    today = datetime.date.today()
+    since_last_saturday = (today.weekday() - 5)%7
+    last_saturday = today - datetime.timedelta(days=since_last_saturday)
+    pub_day_iso = last_saturday.isoformat()
+    index_url = f'https://www.courrierinternational.com/weekend/{pub_day_iso}/1'
     no_stylesheets = True
     auto_cleanup   = False
     max_articles_per_feed = 100
@@ -59,7 +62,7 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
         soup = self.index_to_soup(self.index_url)
         articles = list()
         title = 'test'
-        url = 'https://www.courrierinternational.com/article/paris-2024-dopage-plusieurs-medailles-sont-decernees-retroactivement-a-paris_221040'
+        url = self.index_url
         article = dict(
                 title=title,
                 url=url,
