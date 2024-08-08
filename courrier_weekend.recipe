@@ -9,20 +9,13 @@ import dateutil.parser
 from bs4 import BeautifulSoup
 
 class AdvancedUserRecipe1667902828(BasicNewsRecipe):
-    title          = 'reveil'
+    title          = 'CourrierWeekend'
     language = 'fr'
 
     index_url = 'https://www.courrierinternational.com/feed/all/rss.xml'
-    politic_url = 'https://www.courrierinternational.com/feed/rubrique/geopolitique/rss.xml'
-    deadline_hour = 6
-    deadline_minute = 35
     no_stylesheets = True
     auto_cleanup   = False
     max_articles_per_feed = 100
-    une_du_jour_day = 3
-    une_du_jour_name = 'a-la-une-de-l-hebdo'
-
-    deadline = datetime.time(deadline_hour, deadline_minute)
 
     keep_only_tags = [
         dict(name='div', attrs={'class': 'article-heading'}),
@@ -63,45 +56,16 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
         return br
 
     def parse_index(self):
-        raw_soup = self.index_to_soup(self.index_url, raw=True)
-        soup = BeautifulSoup(raw_soup, 'xml')
-
+        soup = self.index_to_soup(self.index_url)
         articles = list()
-
-        for div in soup.find_all('item'):
-            date_text=div.find('pubDate').text.strip()[0:-6]
-            article_datetime = dateutil.parser.parse(date_text)
-            if article_datetime.date() == datetime.date.today():
-                if article_datetime.time() <= self.deadline:
-                    title = div.title.text
-                    description=div.find('description').text
-                    url=div.find('link').text
-                    article = dict(
-                            title=title,
-                            url=url,
-                            date=date_text,
-                            description=description,
-                            )
-                    articles.append(article)
-        if datetime.date.today().weekday() == self.une_du_jour_day:
-            print('ok1')
-            raw_soup = self.index_to_soup(self.politic_url, raw=True)
-            soup = BeautifulSoup(raw_soup, 'xml')
-            for div in soup.find_all('item'):
-                url=div.find('link').text
-                if self.une_du_jour_name in url:
-                    print('ok2')
-                    date_text=div.find('pubDate').text.strip()[0:-6]
-                    title = div.title.text
-                    description=div.find('description').text
-                    article = dict(
-                            title=title,
-                            url=url,
-                            date=date_text,
-                            description=description,
-                            )
-                    articles.append(article)
+        title = 'test'
+        url = 'https://www.courrierinternational.com/article/paris-2024-dopage-plusieurs-medailles-sont-decernees-retroactivement-a-paris_221040'
+        article = dict(
+                title=title,
+                url=url,
+        #        date=date,
+        #        description=description,
+                )
+        articles.append(article)
         feeds = [('Articles', articles)]
         return feeds
-
-
