@@ -9,7 +9,7 @@ import dateutil.parser
 from bs4 import BeautifulSoup
 
 class AdvancedUserRecipe1667902828(BasicNewsRecipe):
-    title          = 'CourrierWeekend'
+    title          = 'Courrier Weekend'
     language = 'fr'
     base_url = "https://www.courrierinternational.com"
     today = datetime.date.today()
