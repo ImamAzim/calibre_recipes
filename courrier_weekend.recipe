@@ -64,9 +64,12 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
         articles = list()
         for link in soup.find_all('a'):
             href = link.get('href')
-            if 'article' in href:
+            if 'article' in href or 'long-format' in href:
                 url = self.base_url + href
-                title = href.replace('-', ' ').split('/')[-1].split('_')[-2]
+                try:
+                    title = href.replace('-', ' ').split('/')[-1].split('_')[-2]
+                except IndexError:
+                    title = href.split('/')[-1]
                 date = self.last_saturday.isoformat()
                 article = dict(
                         title=title,
