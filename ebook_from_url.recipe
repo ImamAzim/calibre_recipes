@@ -23,7 +23,7 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
         chapters = list()
 
         for url in self.urls:
-            raw_soup = self.index_to_soup(self.index_url, raw=True)
+            raw_soup = self.index_to_soup(url, raw=True)
             soup = BeautifulSoup(raw_soup, 'xml')
             title = soup.title.string if soup.title else 'no title'
             chapter = dict(
