@@ -9,8 +9,8 @@ import dateutil.parser
 from bs4 import BeautifulSoup
 
 class AdvancedUserRecipe1667902828(BasicNewsRecipe):
-    title          = 'title'
-    language = 'fr'
+    title = 'test'
+    language = 'en'
     urls = [
             'https://manual.calibre-ebook.com/',
             ]
@@ -25,11 +25,10 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
         for url in self.urls
             raw_soup = self.index_to_soup(self.index_url, raw=True)
             soup = BeautifulSoup(raw_soup, 'xml')
+            title = soup.title.string if soup.title else 'no title'
             chapter = dict(
                     title=title,
                     url=url,
-                    date=date_text,
-                    description=description,
                     )
             chapters.append(chapter)
         feeds = [(title, chapters)]
