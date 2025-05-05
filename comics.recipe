@@ -23,7 +23,7 @@ class AdvancedUserRecipe1704966550(BasicNewsRecipe):
             'style',
             ]
     extra_css_list = list()
-    extra_css_list.append("img {width: 100%; height: 100%; object-fit: contain}")
+    #extra_css_list.append("img {width: 100%; height: 100%; object-fit: contain}")
     extra_css_list.append(".calibre_navbar {display: none}")
     extra_css_list.append(".calibre_feed_list {display: none}")
     extra_css_list.append("[src='mastheadImage.jpg'] {display: none}")
