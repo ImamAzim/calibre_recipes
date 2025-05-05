@@ -22,22 +22,14 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
     max_articles_per_feed = 100
 
     keep_only_tags = [
-        dict(name='div', attrs={'class': 'article-heading'}),
-        dict(name='p', attrs={'class': 'article-lede'}),
-        dict(name='div', attrs={'class': 'article-metas'}),
-        dict(name='div', attrs={'class': 'article-content'}),
-        dict(name='p', attrs={'class': 'article-authors'}),
-        dict(name='div', attrs={'class': 'article-box-source'}),
+        dict(name='article', attrs={'class': 'article'}),
     ]
     remove_tags = [
-        dict(name='div', attrs={'class': 'article-tools'}),
-        dict(name='div', attrs={'class': 'tools-list'}),
+        dict(name='aside', attrs={'class': 'article-aside'}),
+        dict(name='div', attrs={'class': 'article-tags'}),
         dict(name='div', attrs={'class': 'article-readmore'}),
-        dict(name='div', attrs={'class': 'tags-list'}),
-        dict(name='div', attrs={'class': 'tags-list'}),
-        dict(name='a', attrs={'class': 'source-link'}),
-        dict(name='p', attrs={'class': 'article-vo'}),
-        dict(name='div', attrs={'data-mobile': 'true'}),
+        dict(name='aside', attrs={'class': 'article-outbrain'}),
+        dict(name='section', attrs={'class': 'article-recommandations'}),
         dict(name='section', attrs={'class': 'ci-services services-left'}),
     ]
     remove_attributes = [
