@@ -29,7 +29,7 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
         dict(name='div', attrs={'class': 'article-tags'}),
         dict(name='div', attrs={'class': 'article-readmore'}),
         dict(name='aside', attrs={'class': 'article-outbrain'}),
-        dict(name='section', attrs={'class': 'article-recommandations'}),
+        dict(name='section', attrs={'class': 'article-recommendations'}),
         dict(name='section', attrs={'class': 'ci-services services-left'}),
     ]
     remove_attributes = [
