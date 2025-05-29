@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 class AdvancedUserRecipe1667902828(BasicNewsRecipe):
     title          = 'reveil'
     language = 'fr'
+    ignore_duplicate_articles = {'title'}
 
     index_url = 'https://www.courrierinternational.com/feed/all/rss.xml'
     feeds_url = list()
@@ -103,11 +104,6 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
                             description=description,
                             )
                     articles.append(article)
-        articles_noduplicates = list()
-        for article in articles:
-            if article not in articles_noduplicates:
-                articles_noduplicates.append(article)
-        articles = articles_noduplicates
         feeds = [('Articles', articles)]
         return feeds
 
