@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+# vim:fileencoding=utf-8
+from calibre.web.feeds.news import AutomaticNewsRecipe
+
+class BasicUserRecipe1756718253(AutomaticNewsRecipe):
+    title          = 'srf'
+    oldest_article = 1
+    max_articles_per_feed = 5
+    auto_cleanup   = True
+
+    feeds          = [
+        ('info', 'https://www.srf.ch/news/bnf/rss/1646'),
+    ]
