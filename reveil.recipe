@@ -59,7 +59,7 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
         br = BasicNewsRecipe.get_browser(self)
         if self.username:
             br.open(self.login_url)
-            br.select_form(name='login')
+            br.select_form('login')
             br['name'] = self.username
             br['pass'] = self.password
             br.submit()
