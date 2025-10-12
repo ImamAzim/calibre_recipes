@@ -40,14 +40,12 @@ class AdvancedUserRecipe1667902828(BasicNewsRecipe):
     login_url = f'{base_url}/login'
 
     def get_browser(self):
-        def is_form_login(form):
-            return "id" in form.attrs and form.attrs['id'] == "user-login-form"
         br = BasicNewsRecipe.get_browser(self)
         if self.username:
             br.open(self.login_url)
-            br.select_form(predicate=is_form_login)
-            br['name'] = self.username
-            br['pass'] = self.password
+            br.select_form(name='login')
+            br['email'] = self.username
+            br['password'] = self.password
             br.submit()
         return br
 
