@@ -12,3 +12,8 @@ class AdvancedUserRecipe1668592883(BasicNewsRecipe):
         ('suisse', 'https://www.rts.ch/info/suisse/?format=rss/news'),
         ('sport', 'http://www.rts.ch/sport/tout-le-sport/?format=rss/news')
     ]
+
+    keep_only_tags = [
+        dict(name='div', attrs={'class': 'rts-container article-container article-text'}),
+    ]
+    no_stylesheets = True
