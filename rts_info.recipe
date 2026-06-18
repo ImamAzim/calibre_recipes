@@ -6,7 +6,7 @@ class AdvancedUserRecipe1668592883(BasicNewsRecipe):
     title          = 'rts info'
     oldest_article = 1
     max_articles_per_feed = 3
-    auto_cleanup   = True
+    auto_cleanup   = False
 
     feeds          = [
         ('suisse', 'https://www.rts.ch/info/suisse/?format=rss/news'),
